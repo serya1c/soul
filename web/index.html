@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Сбор на ничто — поддержи цифровую пустоту</title>
+  <meta name="description" content="Сайт для сбора пожертвований на ничто. Бросьте монету в цифровую пустоту — поддержите проект." />
+  <meta name="keywords" content="сбор денег, пожертвования, цифровая пустота, донаты, помощь, сбор средств, дай деняг" />
+  <meta name="robots" content="index, follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Сбор на ничто" />
+  <meta property="og:description" content="Бросьте монету в цифровую пустоту — поддержите проект." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://soul.ach-play.ru/" />
+  <meta property="og:image" content="https://soul.ach-play.ru/static/preview.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Сбор на ничто" />
+  <meta name="twitter:description" content="Бросьте монету в цифровую пустоту — поддержите проект." />
+  <meta name="twitter:image" content="https://soul.ach-play.ru/static/preview.png" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 1em;
+      height: 100%;
+      font-family: monospace;
+      color: #e0e0e0;
+      background: #0f0f0f;
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at bottom, #2a0a3e 0%, #0f0f0f 100%);
+      z-index: -3;
+    }
+
+    .stars, .stars2, .stars3 {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-repeat: repeat;
+      background-size: contain;
+      z-index: -2;
+      animation: moveStars linear infinite;
+    }
+
+    .stars {
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity: 0.3;
+      animation-duration: 200s;
+    }
+
+    .stars2 {
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity: 0.2;
+      animation-duration: 150s;
+    }
+
+    .stars3 {
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity: 0.1;
+      animation-duration: 100s;
+    }
+
+    @keyframes moveStars {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-1000px); }
+    }
+
+    a {
+      color: #00ffaa;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    a:hover {
+      text-shadow: 0 0 5px #00ffaa, 0 0 10px #00ffaa;
+    }
+
+    .ascii {
+      color: #666;
+      margin: 1em 0 2em;
+      animation: pulse 4s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { color: #444; transform: scale(1); }
+      50% { color: #999; transform: scale(1.05); }
+      100% { color: #444; transform: scale(1); }
+    }
+
+    h1 {
+      margin: 0.2em 0;
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    .quote {
+      color: #aaa;
+      font-style: italic;
+      margin-top: 2em;
+    }
+
+    .links {
+      margin-top: 2em;
+    }
+
+    .links a {
+      margin: 0 1em;
+      display: inline-block;
+    }
+
+    #typed-text {
+      display: inline-block;
+      border-right: 2px solid #00ffaa;
+      padding-right: 5px;
+      animation: blink 1s steps(2, start) infinite;
+    }
+
+    @keyframes blink {
+      to { border-color: transparent; }
+    }
+  </style>
+</head>
+<body>
+<!-- Анимированный фон -->
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
+<div class="ascii">
+     .-""""-.
+   .'        '.
+  / _   __   __\\
+ : (_) |__| |__) :
+ |               |
+ :    _______    :
+  \  /       \  /
+   '.\_______/.'
+     '-.___.-'
+</div>
+<h1>💸 СБОР НА НИЧТО</h1>
+
+<p id="typed-text"></p>
+
+<p>
+👉 <a href="https://www.tbank.ru/cf/8VzKxrgjk01" target="_blank">ПОЖЕРТВОВАТЬ</a>
+</p>
+
+<div class="quote">
+"Тишина вечности глуха к нашим целям,<br>
+но иногда она отвечает жестом." — кто-то, когда-то
+</div>
+
+<div class="links">
+  <a href="/admin">⚙ Админка</a>
+  <a href="/guestbook">📖 Гостевая книга</a>
+</div>
+
+<div itemscope itemtype="https://schema.org/WebSite">
+  <meta itemprop="name" content="Сбор на ничто">
+  <meta itemprop="url" content="https://soul.ach-play.ru/">
+  <meta itemprop="description" content="Проект для тех, кто хочет пожертвовать в цифровую пустоту. Без цели, без смысла — просто так.">
+</div>
+
+<div itemscope itemtype="https://schema.org/Person">
+  <meta itemprop="name" content="Анонимный Создатель">
+  <meta itemprop="description" content="Создатель сайта «Сбор на ничто»">
+</div>
+
+<script>
+  const text = "Ты пришёл в никуда.\nИ всё же — ты здесь.\n\nХочешь бросить монету в цифровую пустоту?\nТвоя жертва будет принята.";
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      document.getElementById("typed-text").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, 40);
+    }
+  }
+  type();
+</script>
+
+</body>
+</html>

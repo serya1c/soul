@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  tor:
+    image: dperson/torproxy
+    container_name: tor
+    restart: always
+    volumes:
+      - ./tor:/etc/tor
+    ports:
+      - "9050:9050"
+
+  web:
+    build: ./web
+    container_name: web
+    restart: always
+    volumes:
+      - ./web:/app
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./web:/usr/share/nginx/html
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+    depends_on:
+      - web
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+
+  cron:
+    image: alpine
+    container_name: certbot-cron
+    volumes:
+      - ./certbot:/certbot
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: >
+      sh -c "echo '0 3 * * * certbot renew --webroot -w /var/www/certbot --quiet && nginx -s reload' | crontab - && crond -f"

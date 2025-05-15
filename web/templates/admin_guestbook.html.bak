@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>🛡 Админская Гостевая</title>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: "Courier New", monospace;
+            padding: 2em;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        .messages {
+            margin-top: 1em;
+            white-space: pre-wrap;
+        }
+        .message {
+            border-bottom: 1px dashed #0f0;
+            padding: 0.5em 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        form {
+            display: inline;
+        }
+        button {
+            background-color: #f00;
+            color: #000;
+            border: none;
+            padding: 0.3em 0.6em;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        button:hover {
+            background-color: #c00;
+        }
+        .nav {
+            margin-top: 2em;
+        }
+        .nav a {
+            color: #0ff;
+            text-decoration: none;
+            margin-right: 1em;
+            border: 1px solid #0ff;
+            padding: 0.5em;
+        }
+        .nav a:hover {
+            background-color: #0ff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>🛡 Просмотр Гостевой Книги</h1>
+
+    <div class="messages">
+        {% for i, msg in enumerate(messages) %}
+            <div class="message">
+                <span>{{ msg.strip() }}</span>
+                <form method="post" action="{{ url_for('delete_guestbook_entry', entry_id=i) }}">
+                    <button type="submit">Удалить</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="nav">
+        <a href="/admin">⚙ Админка</a>
+        <a href="/logs">📜 Логи</a>
+        <a href="/">🏠 На главную</a>
+    </div>
+</body>
+</html>
