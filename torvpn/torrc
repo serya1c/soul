@@ -1,8 +1,10 @@
 Log notice stdout
 
-SocksPort 0.0.0.0:9050
-ControlPort 9051
-CookieAuthentication 1
-
+# Основной hidden service
 HiddenServiceDir /var/lib/tor/hidden_service/
 HiddenServicePort 80 web:80
+
+# Использование Snowflake
+UseBridges 1
+ClientTransportPlugin snowflake exec /usr/bin/snowflake-client
+
