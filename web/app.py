@@ -19,6 +19,11 @@ PASSWORD = os.getenv('PASSWORD')
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
+class LogEntry(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    action = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
 class GuestbookEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.Text, nullable=False)
@@ -34,8 +39,9 @@ def authenticate():
     )
 
 def log_action(action):
-    with open("logs.txt", "a") as log:
-        log.write(f"[{datetime.utcnow()}] {action}\n")
+    log = LogEntry(action=action)
+    db.session.add(log)
+    db.session.commit()
 
 def send_telegram_message(message):
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
@@ -67,8 +73,8 @@ def logs():
     if not auth or not check_auth(auth.username, auth.password):
         return authenticate()
 
-    with open("logs.txt", "r") as f:
-        return "<pre>" + f.read() + "</pre>"
+    logs = LogEntry.query.order_by(LogEntry.timestamp.desc()).all()
+    return render_template("logs.html", logs=logs)
 
 @app.route('/guestbook', methods=['GET', 'POST'])
 def guestbook():
