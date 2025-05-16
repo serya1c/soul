@@ -154,10 +154,10 @@
   <h1>🛡 Просмотр Гостевой Книги</h1>
 
   <div class="messages">
-    {% for i, msg in enumerate(messages) %}
+    {% for entry in entries %}
       <div class="message">
-        <span>{{ msg.strip() }}</span>
-        <form method="post" action="{{ url_for('delete_guestbook_entry', entry_id=i) }}">
+        <span>{{ entry.created_at }} — {{ entry.message }}</span>
+        <form method="post" action="{{ url_for('delete_guestbook_entry', entry_id=entry.id) }}">
           <button type="submit">Удалить</button>
         </form>
       </div>
