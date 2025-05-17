@@ -5,9 +5,9 @@ services:
     image: postgres:15
     restart: always
     environment:
-      POSTGRES_DB: guestbook
-      POSTGRES_USER: soul
-      POSTGRES_PASSWORD: xie9Obah
+    -  POSTGRES_DB=${POSTGRES_DB}
+    -  POSTGRES_USER=${POSTGRES_USER}
+    -  POSTGRES_PASSWORD={POSTGRES_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
 
