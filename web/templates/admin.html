@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>⚙ Центр Бессмысленного Управления</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+
   <style>
     html, body {
       margin: 0;
@@ -12,11 +15,7 @@
       color: #e0e0e0;
       background: #0f0f0f;
       box-sizing: border-box;
-      white-space: pre-wrap;
       text-align: center;
-      overflow-y: auto;
-      position: relative;
-      z-index: 1;
     }
 
     body::before {
@@ -24,8 +23,8 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: radial-gradient(ellipse at bottom, #2a0a3e 0%, #0f0f0f 100%);
-      z-index: -3;
+      background: radial-gradient(ellipse at bottom, rgba(42,10,62,0.3) 0%, rgba(15,15,15,0.6) 100%);
+      pointer-events: none;
     }
 
     .stars, .stars2, .stars3 {
@@ -34,43 +33,69 @@
       height: 100%;
       background-repeat: repeat;
       background-size: contain;
-      z-index: -2;
       animation: moveStars linear infinite;
+      pointer-events: none;
     }
 
-    .stars {
-      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-      opacity: 0.3;
-      animation-duration: 200s;
-    }
-
-    .stars2 {
-      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-      opacity: 0.2;
-      animation-duration: 150s;
-    }
-
-    .stars3 {
-      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-      opacity: 0.1;
-      animation-duration: 100s;
-    }
+    .stars { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.3; animation-duration: 200s; }
+    .stars2 { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.2; animation-duration: 150s; }
+    .stars3 { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.1; animation-duration: 100s; }
 
     @keyframes moveStars {
       0% { transform: translateY(0); }
       100% { transform: translateY(-1000px); }
     }
 
+    nav.topnav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5em;
+      background-color: rgba(15, 15, 15, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 0.5em 1em;
+      z-index: 100;
+      border-bottom: 1px solid #00ffaa33;
+      box-shadow: 0 0 8px #00ffaa33;
+    }
+
+    nav.topnav a {
+      color: #00ffaa;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.3em 0.8em;
+      border-radius: 5px;
+      transition: 0.3s ease;
+      white-space: nowrap;
+    }
+
+    nav.topnav a:hover {
+      background-color: #00ffaa22;
+      box-shadow: 0 0 8px #00ffaa55;
+    }
+
+    body {
+      padding-top: 4em;
+    }
+
     h1 {
       font-size: 2em;
       margin-bottom: 1em;
       color: #00ffaa;
-      text-shadow: 0 0 8px #00ffaaaa;
+      text-shadow: 0 0 8px #00ffaa88;
+    }
+
+    form {
+      margin: 2em auto;
+      max-width: 800px;
     }
 
     textarea {
       width: 100%;
-      max-width: 800px;
       height: 400px;
       background: #111;
       color: #0f0;
@@ -106,51 +131,33 @@
       font-weight: bold;
       text-shadow: 0 0 5px #f0f;
     }
-
-    .nav {
-      margin-top: 2em;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.7em;
-    }
-
-    .nav a {
-      color: #0ff;
-      text-decoration: none;
-      border: 1px solid #0ff;
-      padding: 0.5em 1em;
-      box-shadow: 0 0 5px #0ff44;
-      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-      display: inline-block;
-      white-space: nowrap;
-      font-weight: bold;
-    }
-
-    .nav a:hover {
-      background-color: #0ff;
-      color: #000;
-      box-shadow: 0 0 15px #0ff;
-    }
   </style>
 </head>
 <body>
-  <!-- Анимированный звездный фон -->
   <div class="stars"></div>
   <div class="stars2"></div>
   <div class="stars3"></div>
+
+  <nav class="topnav">
+    <a href="/">🏠 Главная</a>
+    <a href="/guestbook">📖 Гостевая</a>
+    <a href="/chat">🤖 Собеседник</a>
+    <a href="/donate-stats">📊 Статистика</a>
+    <a href="/admin">⚙ Админка</a>
+    <a href="/logs">📜 Логи</a>
+    <a href="/admin/guestbook">✏️ Ред. Гостевая</a>
+  </nav>
+
   <h1>🛠 Редактирование Смысла</h1>
+
   <form method="POST">
     <textarea name="content">{{ content }}</textarea><br />
     <input type="submit" value="💾 Обновить Бессмысленность" />
   </form>
+
   {% if message %}
     <div class="message">{{ message }}</div>
   {% endif %}
-  <div class="nav">
-    <a href="/">🏠 На главную</a>
-    <a href="/logs">📜 Логи</a>
-    <a href="/admin/guestbook">📖 Гостевая (админ)</a>
-  </div>
+
 </body>
 </html>
