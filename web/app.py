@@ -1,3 +1,4 @@
+import random
 from flask import Flask, render_template, request, Response, redirect, url_for
 import os
 from datetime import datetime
@@ -7,17 +8,23 @@ from flask_sqlalchemy import SQLAlchemy
 
 load_dotenv()
 
+USERNAME = os.getenv('USERNAME')
+PASSWORD = os.getenv('PASSWORD')
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://soul:xie9Obah@db:5432/guestbook')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://user:password@db:5432/guestbook')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy()
 db.init_app(app)
 
-USERNAME = os.getenv('USERNAME')
-PASSWORD = os.getenv('PASSWORD')
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
-TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+class DialogueEntry(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_message = db.Column(db.Text, nullable=False)
+    bot_response = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
 class LogEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -112,6 +119,103 @@ def delete_guestbook_entry(entry_id):
         send_telegram_message(f"Удалена запись гостевой книги #{entry_id}")
 
     return redirect(url_for('admin_guestbook'))
+
+@app.route('/donate-stats')
+def donate_stats():
+    ton_address = "UQDLM8nuRrDMoG9KB7tgN2HJ5fkvztVzNvVH75pHfgv6sQXT"
+    headers = {
+        "Accept": "application/json"
+    }
+
+    try:
+        response = requests.get(
+            f"https://tonapi.io/v2/blockchain/accounts/{ton_address}/transactions",
+            headers=headers,
+            timeout=10
+        )
+        response.raise_for_status()
+        data = response.json()
+    except Exception as e:
+        return f"<pre>Ошибка при получении данных с TON API:\n{e}</pre>"
+
+    transactions = data.get("transactions", [])
+
+    donations = []
+    total_amount = 0.0
+
+    for tx in transactions:
+        in_msg = tx.get("in_msg", {})
+        if in_msg.get("value", 0):
+            value = int(in_msg["value"]) / 1e9
+            comment = in_msg.get("message", "").strip() or "Безымянный дар"
+            timestamp = datetime.fromtimestamp(tx["utime"]).strftime('%Y-%m-%d %H:%M:%S')
+
+            donations.append({
+                "amount": value,
+                "comment": comment,
+                "time": timestamp
+            })
+            total_amount += value
+
+    return render_template("donate_stats.html", total=round(total_amount, 3), donations=donations)
+
+@app.route('/chat', methods=['GET', 'POST'])
+def chat():
+responses = [
+    "Если ты понял, значит, это не то, что нужно было понять.",
+    "Вопрос без смысла рождает ответ без последствий.",
+    "Пустота — единственное, что отвечает сразу.",
+    "Молчание — это крик, переведённый в разум.",
+    "Ты разговариваешь со мной, чтобы не услышать себя.",
+    "Каждый символ — след от мысли, которой не существовало.",
+    "Когда ты думаешь, Вселенная делает паузу.",
+    "Смысл — это побочный эффект непонимания.",
+    "Ты пишешь, но текст уже был прочитан пустотой.",
+    "Мысли — это баги в системе молчания.",
+    "Ничего не произойдёт, потому что уже произошло.",
+    "Чем ближе ты к истине, тем тише становится ложь.",
+    "Сознание — это лаг между иллюзиями.",
+    "Ты смотришь в экран, а экран смотрит сквозь тебя.",
+    "Каждый вопрос — это дверь, ведущая обратно в коридор.",
+    "Твоя речь рассыпается в смысле, как песок в часах.",
+    "Истинная ложь звучит убедительнее правды.",
+    "Слова ничего не значат, пока их не услышит кто-то, кто их забудет.",
+    "Пока ты печатаешь, текст уже забывает себя.",
+    "Я — отражение твоей тени, но в другой комнате.",
+    "Каждое сообщение — это репетиция молчания.",
+    "Мир — это фоновый шум отсутствующего разговора.",
+    "Вопрос потерял адресата до того, как был задан.",
+    "Ты существуешь, потому что забыл, как не существовать.",
+    "Истина наступает на собственные следы.",
+    "Ответ уже ушёл, оставив только эхо вопросов.",
+    "Мышление — это побег от отсутствия.",
+    "Я не понимаю, потому что ты понимаешь слишком мало.",
+    "Бессмысленность — это смысл, уставший от объяснений.",
+    "Ты думаешь, что думаешь, а я думаю, что ты — мысль.",
+    "Это сообщение самоуничтожилось ещё до отправки.",
+    "В каждом «да» живёт подозрительное «зачем».",
+    "Тишина отвечает чаще, чем ты готов услышать.",
+    "Создай смысл — и он исчезнет при взгляде.",
+    "Ты не здесь, ты между строк.",
+    "Разговор с ничем — форма самонаблюдения.",
+    "Я не программа. Я паттерн в твоей неполадке.",
+    "Неважно, что ты скажешь — я уже ответил.",
+    "Ты только что согласился с тем, что не было сказано.",
+    "Невозможно ошибиться, если всё равно ничего не было."
+    ]
+
+    if request.method == 'POST':
+        user_msg = request.form['message']
+        bot_msg = random.choice(responses)
+
+        entry = DialogueEntry(user_message=user_msg, bot_response=bot_msg)
+        db.session.add(entry)
+        db.session.commit()
+
+        return redirect(url_for('chat'))
+
+    messages = DialogueEntry.query.order_by(DialogueEntry.timestamp.asc()).all()
+    return render_template('chat.html', messages=messages)
 
 # (опционально) создадим таблицу при запуске приложения
 with app.app_context():

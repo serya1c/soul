@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>🤖 Бессмысленный Собеседник</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      font-family: monospace;
+      background-image: radial-gradient(ellipse at bottom, #2a0a3e 0%, #0f0f0f 100%);
+      overflow-y: auto;
+    }
+
+    .chatbox {
+      max-width: 800px;
+      margin: auto;
+      background: #111;
+      border: 1px solid #0f0;
+      padding: 1em;
+      box-shadow: 0 0 10px #0f0;
+    }
+
+    .entry {
+      margin-bottom: 1em;
+    }
+
+    .user {
+      color: #0ff;
+    }
+
+    .bot {
+      color: #ff0;
+      margin-left: 1em;
+    }
+
+    form {
+      margin-top: 1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 600px;
+      height: 70px;
+      background: #222;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.5em;
+      font-family: monospace;
+      margin-bottom: 1em;
+    }
+
+    button {
+      background: #0f0;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 0.5em 1em;
+      cursor: pointer;
+    }
+
+    .nav {
+      margin-top: 2em;
+      text-align: center;
+    }
+
+    .nav a {
+      color: #0ff;
+      text-decoration: none;
+      border: 1px solid #0ff;
+      padding: 0.5em;
+      margin: 0 0.5em;
+    }
+
+    .nav a:hover {
+      background: #0ff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chatbox">
+  <h2>🤖 Собеседник из пустоты</h2>
+  {% for msg in messages %}
+    <div class="entry">
+      <span class="user">Ты:</span> {{ msg.user_message }}<br>
+      <span class="bot">НИКТО:</span> {{ msg.bot_response }}
+    </div>
+  {% endfor %}
+
+  <form method="POST">
+    <textarea name="message" required placeholder="Напиши что-нибудь в пустоту..."></textarea>
+    <button type="submit">Отправить</button>
+  </form>
+</div>
+
+<div class="nav">
+  <a href="/">🏠 На главную</a>
+</div>
+
+</body>
+</html>

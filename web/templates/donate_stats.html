@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>🌌 Статистика Донатов</title>
+  <style>
+    body {
+      background: #0f0f0f;
+      color: #00ffaa;
+      font-family: monospace;
+      padding: 2em;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 1em;
+      text-shadow: 0 0 8px #00ffaa88;
+    }
+
+    .donations {
+      margin-top: 2em;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      border-top: 1px dashed #0ff;
+    }
+
+    .entry {
+      border-bottom: 1px dashed #0ff;
+      margin-bottom: 1em;
+      padding: 0.5em 0;
+    }
+
+    .nav {
+      margin-top: 2em;
+    }
+
+    .nav a {
+      color: #0ff;
+      text-decoration: none;
+      margin-right: 1em;
+      border: 1px solid #0ff;
+      padding: 0.5em 1em;
+    }
+
+    .nav a:hover {
+      background-color: #0ff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🌌 Приношения в цифровую пустоту</h1>
+
+<p><strong>Всего собрано:</strong> {{ total }} TON</p>
+
+<div class="donations">
+  {% for d in donations %}
+    <div class="entry">
+      💸 <strong>{{ d.amount }} TON</strong><br>
+      🕰 {{ d.time }}<br>
+      ✉️ {{ d.comment }}
+    </div>
+  {% endfor %}
+</div>
+
+<div class="nav">
+  <a href="/">🏠 Главная</a>
+</div>
+
+</body>
+</html>
