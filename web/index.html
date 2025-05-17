@@ -3,30 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Сбор на ничто — поддержи цифровую пустоту</title>
-  <meta name="description" content="Сайт для сбора пожертвований на ничто. Бросьте монету в цифровую пустоту — поддержите проект." />
-  <meta name="keywords" content="сбор денег, пожертвования, цифровая пустота, донаты, помощь, сбор средств, дай деняг" />
-  <meta name="robots" content="index, follow" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Сайт для сбора пожертвований на ничто. Бросьте монету в цифровую пустоту — поддержите проект.">
+  <meta name="keywords" content="сбор денег, пожертвования, цифровая пустота, донаты, помощь, сбор средств, дай деняг">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="icon" type="image/png" href="/static/favicon.png">
+  <meta property="og:title" content="Сбор на ничто">
+  <meta property="og:description" content="Бросьте монету в цифровую пустоту — поддержите проект.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://soul.ach-play.ru/">
+  <meta property="og:image" content="https://soul.ach-play.ru/static/preview.png">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Сбор на ничто" />
-  <meta property="og:description" content="Бросьте монету в цифровую пустоту — поддержите проект." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://soul.ach-play.ru/" />
-  <meta property="og:image" content="https://soul.ach-play.ru/static/preview.png" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Сбор на ничто" />
-  <meta name="twitter:description" content="Бросьте монету в цифровую пустоту — поддержите проект." />
-  <meta name="twitter:image" content="https://soul.ach-play.ru/static/preview.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Сбор на ничто">
+  <meta name="twitter:description" content="Бросьте монету в цифровую пустоту — поддержите проект.">
+  <meta name="twitter:image" content="https://soul.ach-play.ru/static/preview.png">
 
   <style>
     html, body {
       margin: 0;
-      padding: 5vw 2vw;
+      padding: 1em;
       height: 100%;
       font-family: monospace;
       color: #e0e0e0;
@@ -34,69 +31,69 @@
       box-sizing: border-box;
       white-space: pre-wrap;
       text-align: center;
-      overflow: auto;
-      position: relative;
-      z-index: 1;
-      font-size: 3.5vw;
-    }
+      overflow-x: hidden;
 
-    @media (min-width: 600px) {
-      html, body {
-        font-size: 1.2rem;
-        padding: 2em;
-      }
     }
+   body::before {
+     content: '';
+     position: fixed;
+     top: 0; left: 0;
+     width: 100%; height: 100%;
+     background: radial-gradient(ellipse at bottom, rgba(42,10,62,0.3) 0%, rgba(15,15,15,0.6) 100%);
+   }
 
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: radial-gradient(ellipse at bottom, #2a0a3e 0%, #0f0f0f 100%);
-      z-index: -3;
-    }
+   .stars, .stars2, .stars3 {
+     position: fixed;
+     width: 100%;
+     height: 100%;
+     background-repeat: repeat;
+     background-size: contain;
+     animation: moveStars linear infinite;
+   }
 
-    .stars, .stars2, .stars3 {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background-repeat: repeat;
-      background-size: contain;
-      z-index: -2;
-      animation: moveStars linear infinite;
-    }
-
-    .stars {
-      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-      opacity: 0.3;
-      animation-duration: 200s;
-    }
-
-    .stars2 {
-      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-      opacity: 0.2;
-      animation-duration: 150s;
-    }
-
-    .stars3 {
-      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-      opacity: 0.1;
-      animation-duration: 100s;
-    }
+    .stars { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.3; animation-duration: 200s; }
+    .stars2 { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.2; animation-duration: 150s; }
+    .stars3 { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.1; animation-duration: 100s; }
 
     @keyframes moveStars {
       0% { transform: translateY(0); }
       100% { transform: translateY(-1000px); }
     }
 
-    a {
-      color: #00ffaa;
-      text-decoration: none;
-      transition: all 0.3s ease;
+    nav.topnav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5em;
+      background-color: rgba(15, 15, 15, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 0.5em 1em;
+      z-index: 100;
+      border-bottom: 1px solid #00ffaa33;
+      box-shadow: 0 0 8px #00ffaa33;
     }
 
-    a:hover {
-      text-shadow: 0 0 5px #00ffaa, 0 0 10px #00ffaa;
+    nav.topnav a {
+      color: #00ffaa;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.3em 0.8em;
+      border-radius: 5px;
+      transition: 0.3s ease;
+      white-space: nowrap;
+    }
+
+    nav.topnav a:hover {
+      background-color: #00ffaa22;
+      box-shadow: 0 0 8px #00ffaa55;
+    }
+
+    body {
+      padding-top: 4em;
     }
 
     .ascii {
@@ -133,15 +130,14 @@
       margin-top: 2em;
     }
 
-    .links {
-      margin-top: 2em;
+    a {
+      color: #00ffaa;
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
 
-    .links a {
-      margin: 0.5em;
-      display: inline-block;
-      font-size: 1em;
-      white-space: nowrap;
+    a:hover {
+      text-shadow: 0 0 5px #00ffaa, 0 0 10px #00ffaa;
     }
 
     #typed-text {
@@ -162,6 +158,14 @@
 <div class="stars2"></div>
 <div class="stars3"></div>
 
+<nav class="topnav">
+  <a href="/">🏠 Главная</a>
+  <a href="/guestbook">📖 Гостевая</a>
+  <a href="/chat">🤖 Собеседник</a>
+  <a href="/donate-stats">📊 Статистика</a>
+  <a href="/admin">⚙ Админка</a>
+</nav>
+
 <div class="ascii">
      .-""""-.
    .'        '.
@@ -180,19 +184,11 @@
 
 <p>
 👉 <a href="https://www.tbank.ru/cf/8VzKxrgjk01" target="_blank">ПОЖЕРТВОВАТЬ</a>
-
 👉 <a href="ton://transfer/UQDLM8nuRrDMoG9KB7tgN2HJ5fkvztVzNvVH75pHfgv6sQXT?amount=100000000" target="_blank">ПОЖЕРТВОВАТЬ В TON</a>
 </p>
 
 <div class="quote" id="quote">
   "..." — неизвестный мыслитель
-</div>
-
-<div class="links">
-  <a href="/admin">⚙ Админка</a>
-  <a href="/guestbook">📖 Гостевая книга</a>
-  <a href="/donate-stats">📊 Статистика</a>
-  <a href="/chat">🤖 Собеседник</a>
 </div>
 
 <div itemscope itemtype="https://schema.org/WebSite">
@@ -223,57 +219,22 @@
     "Истинная истина — это та, о которой забыли соврать.",
     "Не каждый, кто идёт назад, отступает. Возможно, он просто забыл, зачем шёл вперёд.",
     "Тишина кричит, но только тем, кто умеет не слышать.",
-    "Квадрат круга — это не геометрия, а недоразумение времени.",
-    "Если идея кажется глупой — подожди, пока она не станет законом.",
-    "Душа — это не Wi-Fi, но порой ловит.",
-    "Пустота — это не отсутствие смысла, а его максимальная концентрация.",
-    "Когда ничто становится целью, каждая монета — признание.",
-    "Не бойся заблудиться. Пространство тоже не знает, где находится.",
-    "Тот, кто ничего не понял, ближе к истине, чем тот, кто уверен.",
-    "Порой лучший путь — это вообще не выходить из дома.",
-    "Даже тень знает, когда пора исчезнуть.",
-    "Молчащий знает всё, но никому не нужен.",
-    "Если мысль пришла, не открывай ей дверь.",
-    "Иногда отсутствие ответа — это ответ, написанный невидимыми чернилами.",
-    "У горизонта нет смысла, но он всегда там.",
-    "Глубина лужи не определяется её отражением.",
-    "Часы не тикают, когда ты их не слушаешь.",
-    "Истина — это ложь, которой позволили постареть.",
-    "Космос тоже не знает, зачем он существует.",
-    "Мысли — это шум на фоне молчания.",
-    "Даже пустота когда-то была полной.",
-    "Те, кто ищут смысл, часто находят меню.",
-    "Мир — это просто баг, который никто не чинит.",
-    "Невидимые стены не нуждаются в замках.",
-    "Сначала ты бежишь, потом лежишь, а потом не важно.",
-    "Даже зеркало лжёт, когда ты не смотришь.",
-    "Иногда точка — это просто усталая запятая.",
-    "Никто не знает, где кончается воображение, но оно платит налоги.",
-    "Даже бессмыслица нуждается в структуре.",
-    "Человек создан из вопросов и хлеба.",
-    "Если дверь закрыта, возможно, за ней нет комнаты.",
-    "Однажды будущее устанет приходить.",
-    "Когда всё понятно — пора просыпаться.",
-    "Лампочка горит, но это не значит, что есть свет.",
-    "Никто не побеждает в гонке к ничему.",
-    "Вечность — это когда ты не можешь вспомнить, с чего всё началось.",
-    "Линия горизонта — это просто договор.",
-    "Даже камень однажды думает: 'Зачем я лежу?'",
-    "Если идея не работает — она точно философская.",
-    "Иногда реальность — это просто ошибка загрузки сна.",
-    "Знание — это шумно оформленное сомнение.",
-    "Когда ты молчишь, ты ближе к космосу.",
     "Даже цифровая пустота может быть сыта вниманием.",
-    "Ничто не двигается быстрее, чем мысль о ничто.",
+    "Иногда реальность — это просто ошибка загрузки сна.",
+    "Если мысль пришла, не открывай ей дверь.",
+    "Каждая бессмыслица была мыслью, которой стало скучно.",
+    "Никто не побеждает в гонке к ничему.",
     "Если ты потерял смысл, не ищи его среди людей.",
-    "Покой — это не отсутствие шума, а его понимание.",
-    "Когда всё кажется ясным — выключи свет.",
-    "Каждая бессмыслица была мыслью, которой стало скучно."
+    "Сначала ты бежишь, потом лежишь, а потом — неважно.",
+    "Пустота — это не отсутствие смысла, а его максимальная концентрация.",
+    "Когда всё понятно — выключи свет.",
+    "Иногда точка — это просто уставшая запятая.",
+    "Истина — это ложь, которой позволили постареть.",
+    "Тот, кто ничего не понял, ближе к истине, чем тот, кто уверен.",
+    "Не бойся заблудиться. Пространство тоже не знает, где находится."
   ];
-
   const quoteEl = document.getElementById("quote");
-  const random = quotes[Math.floor(Math.random() * quotes.length)];
-  quoteEl.innerHTML = `"${random}" — кто-то, когда-то`;
+  quoteEl.innerHTML = `"${quotes[Math.floor(Math.random() * quotes.length)]}" — кто-то, когда-то`;
 </script>
 
 </body>
