@@ -59,6 +59,7 @@
 ```bash
 git clone https://github.com/your/repo.git
 cd project
+cp web/.env.example web/.env
 cp .env.example .env
 docker-compose up --build
 ```
