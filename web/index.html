@@ -14,7 +14,6 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://soul.ach-play.ru/">
   <meta property="og:image" content="https://soul.ach-play.ru/static/preview.png">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Жертва без цели">
   <meta name="twitter:description" content="Бросьте монету в цифровую пустоту — поддержите проект.">
@@ -33,24 +32,25 @@
       text-align: center;
       overflow-x: hidden;
     }
-   body::before {
-     content: '';
-     position: fixed;
-     top: 0; left: 0;
-     width: 100%; height: 100%;
-     background: radial-gradient(ellipse at bottom, rgba(42,10,62,0.3) 0%, rgba(15,15,15,0.6) 100%);
-     pointer-events: none;
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at bottom, rgba(42,10,62,0.3) 0%, rgba(15,15,15,0.6) 100%);
+      pointer-events: none;
     }
 
-   .stars, .stars2, .stars3 {
-     position: fixed;
-     width: 100%;
-     height: 100%;
-     background-repeat: repeat;
-     background-size: contain;
-     animation: moveStars linear infinite;
-     pointer-events: none;
-   }
+    .stars, .stars2, .stars3 {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-repeat: repeat;
+      background-size: contain;
+      animation: moveStars linear infinite;
+      pointer-events: none;
+    }
 
     .stars { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.3; animation-duration: 200s; }
     .stars2 { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.2; animation-duration: 150s; }
@@ -97,28 +97,18 @@
       padding-top: 4em;
     }
 
-    .ascii {
-      color: #666;
-      margin: 1em 0 2em;
-      animation: pulse 4s infinite ease-in-out;
-      font-size: 3vw;
-    }
-
-    @media (min-width: 600px) {
-      .ascii {
-        font-size: 1rem;
-      }
-    }
-
-    @keyframes pulse {
-      0% { color: #444; transform: scale(1); }
-      50% { color: #999; transform: scale(1.05); }
-      100% { color: #444; transform: scale(1); }
-    }
-
     h1 {
       margin: 0.2em 0;
       font-size: 2em;
+    }
+
+    canvas#soul-game {
+      display: block;
+      margin: 2em auto;
+      border: 1px dashed #00ffaa;
+      background: rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 10px #00ffaa55;
+      max-width: 100%;
     }
 
     p {
@@ -167,19 +157,9 @@
   <a href="/admin">⚙ Админка</a>
 </nav>
 
-<div class="ascii">
-     .-""""-.
-   .'        '.
-  / _   __   __\\
- : (_) |__| |__) :
- |               |
- :    _______    :
-  \  /       \  /
-   '.\_______/.'
-     '-.___.-'
-</div>
-
 <h1>💸 ЖЕРТВА БЕЗ ЦЕЛИ</h1>
+
+<canvas id="soul-game" width="600" height="200"></canvas>
 
 <p id="typed-text"></p>
 
@@ -188,9 +168,7 @@
 👉 <a href="ton://transfer/UQDLM8nuRrDMoG9KB7tgN2HJ5fkvztVzNvVH75pHfgv6sQXT?amount=100000000" target="_blank">ПОЖЕРТВОВАТЬ В TON</a>
 </p>
 
-<div class="quote" id="quote">
-  "..." — неизвестный мыслитель
-</div>
+<div class="quote" id="quote">"..." — неизвестный мыслитель</div>
 
 <div itemscope itemtype="https://schema.org/WebSite">
   <meta itemprop="name" content="Жертва без цели">
@@ -218,24 +196,73 @@
   const quotes = [
     "Чем дольше ты смотришь в пустоту, тем медленнее чайник закипает.",
     "Истинная истина — это та, о которой забыли соврать.",
-    "Не каждый, кто идёт назад, отступает. Возможно, он просто забыл, зачем шёл вперёд.",
-    "Тишина кричит, но только тем, кто умеет не слышать.",
-    "Даже цифровая пустота может быть сыта вниманием.",
-    "Иногда реальность — это просто ошибка загрузки сна.",
-    "Если мысль пришла, не открывай ей дверь.",
-    "Каждая бессмыслица была мыслью, которой стало скучно.",
-    "Никто не побеждает в гонке к ничему.",
-    "Если ты потерял смысл, не ищи его среди людей.",
-    "Сначала ты бежишь, потом лежишь, а потом — неважно.",
-    "Пустота — это не отсутствие смысла, а его максимальная концентрация.",
-    "Когда всё понятно — выключи свет.",
     "Иногда точка — это просто уставшая запятая.",
-    "Истина — это ложь, которой позволили постареть.",
-    "Тот, кто ничего не понял, ближе к истине, чем тот, кто уверен.",
-    "Не бойся заблудиться. Пространство тоже не знает, где находится."
+    "Если ты потерял смысл, не ищи его среди людей.",
+    "Каждая бессмыслица была мыслью, которой стало скучно."
   ];
-  const quoteEl = document.getElementById("quote");
-  quoteEl.innerHTML = `"${quotes[Math.floor(Math.random() * quotes.length)]}" — кто-то, когда-то`;
+  document.getElementById("quote").innerHTML =
+    `"${quotes[Math.floor(Math.random() * quotes.length)]}" — кто-то, когда-то`;
+</script>
+
+<script>
+  const canvas = document.getElementById('soul-game');
+  const ctx = canvas.getContext('2d');
+  let soul = { x: 280, y: 160, size: 20, dx: 0 };
+  let shards = [];
+  let keys = {};
+
+  document.addEventListener('keydown', e => keys[e.key] = true);
+  document.addEventListener('keyup', e => keys[e.key] = false);
+
+  function createShard() {
+    const x = Math.random() * (canvas.width - 10);
+    shards.push({ x, y: 0, size: 10 });
+  }
+
+  function update() {
+    soul.dx = 0;
+    if (keys['ArrowLeft'] || keys['a']) soul.dx = -3;
+    if (keys['ArrowRight'] || keys['d']) soul.dx = 3;
+    soul.x += soul.dx;
+    soul.x = Math.max(0, Math.min(soul.x, canvas.width - soul.size));
+
+    for (let i = 0; i < shards.length; i++) {
+      shards[i].y += 2;
+      if (
+        shards[i].y + shards[i].size > soul.y &&
+        shards[i].x < soul.x + soul.size &&
+        shards[i].x + shards[i].size > soul.x
+      ) {
+        shards.splice(i, 1);
+        i--;
+      }
+    }
+
+    if (Math.random() < 0.03) createShard();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ffaa';
+    ctx.beginPath();
+    ctx.arc(soul.x + soul.size / 2, soul.y + soul.size / 2, soul.size / 2, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff88';
+    shards.forEach(s => {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size / 2, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  function loop() {
+    update();
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  loop();
 </script>
 
 </body>
