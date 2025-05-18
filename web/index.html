@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Жертва без цели — поддержи цифровую пустоту</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Сайт для сбора пожертвований без цели. Бросьте монету в цифровую пустоту — поддержите проект.">
   <meta name="keywords" content="сбор денег, пожертвования, цифровая пустота, донаты, помощь, сбор средств, дай деняг">
   <meta name="robots" content="index, follow">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="icon" type="image/png" href="/static/favicon.png">
   <meta property="og:title" content="Жертва без цели">
@@ -21,126 +21,77 @@
 
   <style>
     html, body {
-      margin: 0;
-      padding: 1em;
-      height: 100%;
+      margin: 0; padding: 1em;
       font-family: monospace;
-      color: #e0e0e0;
       background: #0f0f0f;
+      color: #e0e0e0;
+      overflow-x: hidden;
       box-sizing: border-box;
       white-space: pre-wrap;
       text-align: center;
-      overflow-x: hidden;
     }
-
     body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      content: ''; position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
       background: radial-gradient(ellipse at bottom, rgba(42,10,62,0.3) 0%, rgba(15,15,15,0.6) 100%);
       pointer-events: none;
     }
-
     .stars, .stars2, .stars3 {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background-repeat: repeat;
-      background-size: contain;
+      position: fixed; width: 100%; height: 100%;
+      background-repeat: repeat; background-size: contain;
       animation: moveStars linear infinite;
       pointer-events: none;
     }
-
     .stars { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.3; animation-duration: 200s; }
     .stars2 { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.2; animation-duration: 150s; }
     .stars3 { background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.1; animation-duration: 100s; }
-
     @keyframes moveStars {
       0% { transform: translateY(0); }
       100% { transform: translateY(-1000px); }
     }
-
     nav.topnav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.5em;
-      background-color: rgba(15, 15, 15, 0.3);
-      backdrop-filter: blur(8px);
-      padding: 0.5em 1em;
-      z-index: 100;
-      border-bottom: 1px solid #00ffaa33;
-      box-shadow: 0 0 8px #00ffaa33;
+      position: fixed; top: 0; left: 0; width: 100%;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5em;
+      background: rgba(15, 15, 15, 0.3); backdrop-filter: blur(8px);
+      padding: 0.5em 1em; z-index: 100;
+      border-bottom: 1px solid #00ffaa33; box-shadow: 0 0 8px #00ffaa33;
     }
-
     nav.topnav a {
-      color: #00ffaa;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 0.3em 0.8em;
-      border-radius: 5px;
-      transition: 0.3s ease;
-      white-space: nowrap;
+      color: #00ffaa; text-decoration: none; font-weight: bold;
+      padding: 0.3em 0.8em; border-radius: 5px; transition: 0.3s ease;
     }
-
     nav.topnav a:hover {
-      background-color: #00ffaa22;
-      box-shadow: 0 0 8px #00ffaa55;
+      background-color: #00ffaa22; box-shadow: 0 0 8px #00ffaa55;
     }
-
-    body {
-      padding-top: 4em;
-    }
-
-    h1 {
-      margin: 0.2em 0;
-      font-size: 2em;
-    }
-
+    body { padding-top: 4em; }
+    h1 { font-size: 2em; margin: 0.5em 0; }
     canvas#soul-game {
-      display: block;
-      margin: 2em auto;
+      display: block; margin: 2em auto;
       border: 1px dashed #00ffaa;
       background: rgba(0, 0, 0, 0.3);
       box-shadow: 0 0 10px #00ffaa55;
       max-width: 100%;
+      touch-action: none;
     }
-
-    p {
-      margin: 1em 0;
-    }
-
+    p { margin: 1em 0; }
     .quote {
-      color: #aaa;
-      font-style: italic;
-      margin-top: 2em;
+      color: #aaa; font-style: italic; margin-top: 2em;
+      transition: opacity 0.5s ease;
     }
-
     a {
-      color: #00ffaa;
-      text-decoration: none;
+      color: #00ffaa; text-decoration: none;
       transition: all 0.3s ease;
     }
-
     a:hover {
       text-shadow: 0 0 5px #00ffaa, 0 0 10px #00ffaa;
     }
-
     #typed-text {
       display: inline-block;
       border-right: 2px solid #00ffaa;
       padding-right: 5px;
       animation: blink 1s steps(2, start) infinite;
     }
-
-    @keyframes blink {
-      to { border-color: transparent; }
-    }
+    @keyframes blink { to { border-color: transparent; } }
   </style>
 </head>
 <body>
@@ -160,7 +111,7 @@
 <h1>💸 ЖЕРТВА БЕЗ ЦЕЛИ</h1>
 
 <canvas id="soul-game" width="600" height="200"></canvas>
-
+<div id="pickup-message" class="quote"></div>
 <p id="typed-text"></p>
 
 <p>
@@ -170,6 +121,7 @@
 
 <div class="quote" id="quote">"..." — неизвестный мыслитель</div>
 
+<!-- Structured data -->
 <div itemscope itemtype="https://schema.org/WebSite">
   <meta itemprop="name" content="Жертва без цели">
   <meta itemprop="url" content="https://soul.ach-play.ru/">
@@ -200,8 +152,7 @@
     "Если ты потерял смысл, не ищи его среди людей.",
     "Каждая бессмыслица была мыслью, которой стало скучно."
   ];
-  document.getElementById("quote").innerHTML =
-    `"${quotes[Math.floor(Math.random() * quotes.length)]}" — кто-то, когда-то`;
+  document.getElementById("quote").innerHTML = `"${quotes[Math.floor(Math.random() * quotes.length)]}" — кто-то, когда-то`;
 </script>
 
 <script>
@@ -214,15 +165,33 @@
   document.addEventListener('keydown', e => keys[e.key] = true);
   document.addEventListener('keyup', e => keys[e.key] = false);
 
+  // Touch support
+  let touchStartX = null;
+  canvas.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  });
+  canvas.addEventListener('touchmove', e => {
+    if (touchStartX !== null) {
+      const touchX = e.touches[0].clientX;
+      const diff = touchX - touchStartX;
+      soul.dx = Math.sign(diff) * 3;
+    }
+  });
+  canvas.addEventListener('touchend', () => {
+    soul.dx = 0;
+    touchStartX = null;
+  });
+
   function createShard() {
     const x = Math.random() * (canvas.width - 10);
     shards.push({ x, y: 0, size: 10 });
   }
 
   function update() {
-    soul.dx = 0;
     if (keys['ArrowLeft'] || keys['a']) soul.dx = -3;
-    if (keys['ArrowRight'] || keys['d']) soul.dx = 3;
+    else if (keys['ArrowRight'] || keys['d']) soul.dx = 3;
+    else if (touchStartX === null) soul.dx = 0;
+
     soul.x += soul.dx;
     soul.x = Math.max(0, Math.min(soul.x, canvas.width - soul.size));
 
@@ -234,6 +203,7 @@
         shards[i].x + shards[i].size > soul.x
       ) {
         shards.splice(i, 1);
+        showPickupMessage();
         i--;
       }
     }
@@ -265,5 +235,28 @@
   loop();
 </script>
 
+<script>
+  const pickupPhrases = [
+    "Ты собрал часть того, чего не существует.",
+    "Ничто стало чуть ближе.",
+    "Осколок тени — это тоже свет.",
+    "Ты наполнил отсутствие собой.",
+    "Мир стал чуть непонятнее.",
+    "Ты стал тяжелей на 0 байт.",
+    "Понимание отдаляется.",
+    "Сбор без цели продолжается."
+  ];
+
+  function showPickupMessage() {
+    const msg = pickupPhrases[Math.floor(Math.random() * pickupPhrases.length)];
+    const el = document.getElementById("pickup-message");
+    el.textContent = msg;
+    el.style.opacity = 1;
+    clearTimeout(el._hideTimer);
+    el._hideTimer = setTimeout(() => {
+      el.style.opacity = 0;
+    }, 2500);
+  }
+</script>
 </body>
 </html>
