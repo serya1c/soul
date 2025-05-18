@@ -77,7 +77,7 @@ TELEGRAM_CHAT_ID=...
 
 ## 👁 Пример экрана
 
-![preview](static/preview.png)
+![preview](web/static/preview.png)
 
 ---
 
