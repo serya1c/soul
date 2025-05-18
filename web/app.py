@@ -217,6 +217,6 @@ def chat():
     messages = DialogueEntry.query.order_by(DialogueEntry.timestamp.asc()).all()
     return render_template('chat.html', messages=messages)
 
-# (опционально) создадим таблицу при запуске приложения
+# создадим таблицу при запуске приложения
 with app.app_context():
     db.create_all()
