@@ -111,14 +111,28 @@ def delete_guestbook_entry(entry_id):
     if not auth or not check_auth(auth.username, auth.password):
         return authenticate()
 
+    REPLACEMENT_MESSAGES = [
+        "Это сообщение растворилось в пустоте.",
+        "Ваш вклад был признан бессмысленным.",
+        "Пустота не приняла этот текст.",
+        "Это послание было поглощено абсурдом.",
+        "Жертва принесена, но не оценена.",
+        "Следы этой записи исчезли навсегда.",
+        "Смысл потерян. Сообщение исчезло.",
+        "Пустота решила промолчать вместо вас.",
+        "Всё это стало частью цифровой тьмы.",
+        "Ваша фраза превратилась в ничто."
+    ]
+
     entry = GuestbookEntry.query.get(entry_id)
     if entry:
-        db.session.delete(entry)
+        replacement = random.choice(REPLACEMENT_MESSAGES)
+        entry.message = replacement
         db.session.commit()
-        log_action(f"Удалена запись гостевой книги #{entry_id}")
-        send_telegram_message(f"Удалена запись гостевой книги #{entry_id}")
-
-    return redirect(url_for('admin_guestbook'))
+        log_action(f"Заменено сообщение в гостевой #{entry_id} фразой: {replacement}")
+        send_telegram_message(f"Заменено сообщение в гостевой #{entry_id} фразой: {replacement}")
+        return {"success": True, "replacement": replacement}
+    return {"success": False}, 404
 
 @app.route('/donate-stats')
 def donate_stats():

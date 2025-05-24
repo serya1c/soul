@@ -7,4 +7,5 @@ HiddenServicePort 80 web:80
 # Использование Snowflake
 UseBridges 1
 ClientTransportPlugin snowflake exec /usr/bin/snowflake-client
+Bridge snowflake 192.0.2.3:1
 
